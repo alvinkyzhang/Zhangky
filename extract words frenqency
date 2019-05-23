@@ -1,0 +1,42 @@
+import json
+import nltk
+import numpy as np
+
+# How to pre process json file
+
+datalist = []
+with open('/Users/Bryan/NLP Project/2014All/20140105.json') as f:
+    for line in f:
+        datalist.append(line)
+
+#
+datadic = []
+for line1 in datalist:
+    datadic.append(json.loads(line))
+
+# extract only 'text' from the data
+Text = []
+i = 0
+while i < len(datadic):
+    for text in datadic[i]['text']:
+        Text.append(datadic[i]['text'])
+        i += 1
+        break
+# Make a list into a string
+
+Text = json.dumps(Text)
+Text = Text.lower() # Lowercased the string
+
+# NLTK word freq
+
+tokens = nltk.word_tokenize(Text) # Tokenize the string
+
+freq = nltk.FreqDist(tokens) # word freq
+
+standard_freq=freq.most_common(100000) # display top 10k words
+
+# Convert into numpy array
+
+standard_freq = np.array(standard_freq)
+
+print(standard_freq)
